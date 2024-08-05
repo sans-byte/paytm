@@ -1,12 +1,11 @@
 const express = require("express");
 const app = express();
 const dbConnect = require("./db/config");
+const routes = require("./routes/index");
 const PORT = 3000;
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.status(200).send("<h2>Hello world</h2>");
-});
+app.use("/api/v1", routes);
 
 app.listen(PORT, () => {
   try {
