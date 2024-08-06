@@ -31,7 +31,7 @@ router.get("/", authMiddleware, async (req, res) => {
 router.post("/signin", async (req, res) => {
   const user = req.body;
   try {
-    const parsedData = userSignInSchema.safeParseparse(user);
+    const parsedData = userSignInSchema.safeParse(user);
     if (!parsedData.success) {
       res.status(400).json(parsedData.error.issues);
     }
@@ -51,7 +51,6 @@ router.post("/signin", async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log("Came here");
     console.log(error);
     return res.status(500).json(error);
   }
@@ -67,7 +66,7 @@ router.post("/signup", async (req, res) => {
     }
 
     if (await User.findOne({ email: user.email })) {
-      return res.status(411).json("User already exists");
+      return res.status(400).json("User already exists");
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -77,16 +76,15 @@ router.post("/signup", async (req, res) => {
     const createdUser = await User.create(user);
     const createdAccount = await Account.create({
       userId: createdUser._id,
-      balance: Math.random() * 1000,
+      balance: 1 + Math.random() * 1000,
     });
-
     res.status(201).json({
       UserId: createdUser._id,
       AccountId: createdAccount._id,
     });
   } catch (error) {
-    return res.status(500).json(error);
     console.log("Something went wrong while creating user", error);
+    return res.status(500).json(error);
   }
 });
 
@@ -104,7 +102,7 @@ router.put("/", authMiddleware, async (req, res) => {
     await User.findByIdAndUpdate(user._id, newValues);
     return res.status(200).json("Update Success");
   } catch (err) {
-    return res.status(411).json("Error while updating information");
+    return res.status(500).json("Error while updating information");
   }
 });
 
