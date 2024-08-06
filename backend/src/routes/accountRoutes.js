@@ -2,7 +2,6 @@ const express = require("express");
 const User = require("../db/models/userModel");
 const Account = require("../db/models/accountModel");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
 const zod = require("zod");
 const { default: mongoose } = require("mongoose");
 
