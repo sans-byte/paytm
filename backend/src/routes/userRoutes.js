@@ -25,7 +25,7 @@ const userSignInSchema = zod.object({
 router.get("/", authMiddleware, async (req, res) => {
   const Users = await User.find();
   console.log(req._id);
-  res.json(Users);
+  return res.status(200).json(Users);
 });
 
 router.post("/signin", async (req, res) => {
@@ -47,13 +47,13 @@ router.post("/signin", async (req, res) => {
       res.status(400).json("Password Incorrect");
     }
     const token = jwt.sign(findUser._doc, JWT_SECRET);
-    res.status(200).json({
+    return res.status(200).json({
       token,
     });
   } catch (error) {
     console.log("Came here");
     console.log(error);
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 });
 
@@ -63,7 +63,7 @@ router.post("/signup", async (req, res) => {
     const parsedData = userSignUpSchema.safeParse(user);
 
     if (!parsedData.success) {
-      res.status(400).json(parsedData.error.issues);
+      return res.status(400).json(parsedData.error.issues);
     }
 
     if (await User.findOne({ email: user.email })) {
@@ -85,7 +85,7 @@ router.post("/signup", async (req, res) => {
       AccountId: createdAccount._id,
     });
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
     console.log("Something went wrong while creating user", error);
   }
 });
@@ -98,13 +98,13 @@ router.put("/", authMiddleware, async (req, res) => {
     const parsedData = userSignUpSchema.safeParse(newValues);
 
     if (!parsedData.success) {
-      res.status(400).json(parsedData.error.issues);
+      return res.status(400).json(parsedData.error.issues);
     }
-    
+
     await User.findByIdAndUpdate(user._id, newValues);
-    res.status(200).json("Update Success");
+    return res.status(200).json("Update Success");
   } catch (err) {
-    res.status(411).json("Error while updating information");
+    return res.status(411).json("Error while updating information");
   }
 });
 
@@ -117,7 +117,7 @@ router.get("/bulk", async (req, res) => {
         { lastName: { $regex: filter } },
       ],
     });
-    res.status(200).json({
+    return res.status(200).json({
       users: users.map((user) => ({
         firstName: user.firstName,
         lastName: user.lastName,
@@ -127,7 +127,7 @@ router.get("/bulk", async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(404).json("Error in finding users");
+    return res.status(404).json("Error in finding users");
   }
 });
 
