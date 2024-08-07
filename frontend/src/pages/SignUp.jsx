@@ -28,7 +28,7 @@ function SignUp() {
           placeholder={"Password@123"}
         ></Input>
         <div></div>
-        <Button> Sign Up </Button>
+        <Button size={"lg"}> Sign Up </Button>
         <BottomWarning link={"Sign in"} to={"/signin"}>
           Already have an account?
         </BottomWarning>

@@ -25,7 +25,7 @@ function Login() {
             placeholder={"Password@123"}
           ></Input>
           <div></div>
-          <Button> Sign In</Button>
+          <Button size={"lg"}> Sign In</Button>
           <BottomWarning link={"Sign up"} to={"/signup"}>
             Do not have an account?
           </BottomWarning>

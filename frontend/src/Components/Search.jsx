@@ -5,11 +5,11 @@ function Search() {
     <div className="mt-4">
       <form className="flex items-center max-w-sm mx-auto">
         <div className="relative w-full">
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"></div>
+          <div className="absolute inset-y-0 start-0 flex items-center ps-1 pointer-events-none"></div>
           <input
             type="text"
             id="simple-search"
-            className="text-sm rounded-md block w-full ps-10 p-2.5  bg-slate-300 border-slate-200   focus:outline-none"
+            className="text-sm rounded-md block w-full ps-5 p-2.5  bg-slate-300 border-slate-200 focus:outline-none"
             placeholder="Search name..."
             required
           />
@@ -27,9 +27,9 @@ function Search() {
           >
             <path
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
             />
           </svg>
