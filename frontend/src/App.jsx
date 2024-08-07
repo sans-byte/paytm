@@ -4,6 +4,7 @@ import PageLoading from "./Components/PageLoading";
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
+const SendMoney = lazy(() => import("./pages/SendMoney"));
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="signin" element={<Login />}></Route>
           <Route path="signup" element={<SignUp />}></Route>
           <Route path="dashboard" element={<Dashboard />}></Route>
+          <Route path="sendMoney" element={<SendMoney />}></Route>
           <Route path="transfer"></Route>
         </Routes>
       </Suspense>
