@@ -66,7 +66,7 @@ router.post("/signup", async (req, res) => {
     }
 
     if (await User.findOne({ email: user.email })) {
-      return res.status(400).json("User already exists");
+      return res.status(409).json("User already exists");
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -78,7 +78,9 @@ router.post("/signup", async (req, res) => {
       userId: createdUser._id,
       balance: 1 + Math.random() * 1000,
     });
+    const token = jwt.sign(createdUser._doc, JWT_SECRET);
     res.status(201).json({
+      token: token,
       UserId: createdUser._id,
       AccountId: createdAccount._id,
     });
