@@ -5,12 +5,15 @@ import Input from "../Components/Input";
 import Button from "../Components/Button";
 import BottomWarning from "../Components/BottomWarning";
 import { signUp } from "../services/userService";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const firstName = useRef();
   const lastName = useRef();
   const email = useRef();
   const password = useRef();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,13 +28,16 @@ function SignUp() {
       if (response.status === 201) {
         alert("User Created");
         localStorage.setItem("token", response.data.token);
+        navigate("/dashboard");
       } else {
-        console.log(response.data);
+        if (typeof response.data === "object") {
+          return response.data.map((err) => alert(err.message));
+        }
         return alert(response.data);
       }
     } catch (error) {
       console.log(error);
-      return alert(error.message);
+      return alert("Something went wrong");
     }
   };
 
@@ -68,7 +74,7 @@ function SignUp() {
         <Button size={"lg"} onClick={handleSubmit}>
           Sign Up
         </Button>
-        <BottomWarning link={"Sign in"} to={"/signin"}>
+        <BottomWarning link={"Sign in"} to={"/"}>
           Already have an account?
         </BottomWarning>
       </div>

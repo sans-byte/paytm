@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppBar from "../Components/AppBar";
 import Button from "../Components/Button";
 import BalanceCard from "../Components/BalanceCard";
@@ -13,7 +13,7 @@ function Dashboard() {
       email: "sanskar@gmail.com",
     },
   ];
-
+  
   return (
     <div className="">
       <AppBar />
