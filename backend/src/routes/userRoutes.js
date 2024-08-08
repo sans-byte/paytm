@@ -24,7 +24,6 @@ const userSignInSchema = zod.object({
 
 router.get("/", authMiddleware, async (req, res) => {
   const Users = await User.find();
-  console.log(req._id);
   return res.status(200).json(Users);
 });
 
@@ -118,7 +117,7 @@ router.put("/", authMiddleware, async (req, res) => {
   }
 });
 
-router.get("/bulk", async (req, res) => {
+router.get("/bulk", authMiddleware, async (req, res) => {
   try {
     const filter = req.query.filter;
     const users = await User.find({
@@ -127,16 +126,16 @@ router.get("/bulk", async (req, res) => {
         { lastName: { $regex: filter } },
       ],
     });
-    return res.status(200).json({
-      users: users.map((user) => ({
+    const allUsers = users
+      .filter((user) => user.id != req.user._id)
+      .map((user) => ({
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         id: user._id,
-      })),
-    });
+      }));
+    return res.status(200).json({ users: allUsers });
   } catch (error) {
-    console.log(error);
     return res.status(404).json("Error in finding users");
   }
 });
