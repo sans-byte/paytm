@@ -8,6 +8,8 @@ function AppBar() {
   const handleLogOut = (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.clear();
     navigate("/");
   };
 
