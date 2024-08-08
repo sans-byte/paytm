@@ -1,6 +1,6 @@
 import React from "react";
 
-function Search() {
+function Search({onChange}) {
   return (
     <div className="mt-4">
       <form className="flex items-center max-w-sm mx-auto">
@@ -9,6 +9,7 @@ function Search() {
           <input
             type="text"
             id="simple-search"
+            onChange={onChange}
             className="text-sm rounded-md block w-full ps-5 p-2.5  bg-slate-300 border-slate-200 focus:outline-none"
             placeholder="Search name..."
             required
