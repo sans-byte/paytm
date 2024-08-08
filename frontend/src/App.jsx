@@ -7,7 +7,6 @@ import { RecoilRoot } from "recoil";
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Login = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
-const SendMoney = lazy(() => import("./pages/SendMoney"));
 
 function App() {
   return (
@@ -39,7 +38,6 @@ function App() {
                 </Protected>
               }
             ></Route>
-            <Route path="/sendMoney" element={<SendMoney />}></Route>
             <Route path="/transfer"></Route>
           </Routes>
         </Suspense>

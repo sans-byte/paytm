@@ -3,7 +3,7 @@ import Heading from "../Components/Heading";
 import Button from "../Components/Button";
 import Input from "../Components/Input";
 
-function SendMoney({ onSubmit, onCancel, user }) {
+function SendMoney({ onSubmit, onCancel, user, setAmount, buttonLoader }) {
   return (
     <div>
       <div className="flex justify-center items-center w-screen h-screen">
@@ -18,11 +18,18 @@ function SendMoney({ onSubmit, onCancel, user }) {
                 {user?.firstName + " " + user?.lastName}
               </p>
             </div>
-            <Input label={"Enter Amount"} placeholder={"₹ 500"}></Input>
+            <Input
+              label={"Enter Amount"}
+              placeholder={"₹ 500"}
+              onChange={setAmount}
+              type={"number"}
+            ></Input>
           </div>
 
           <div className="mb-5 flex justify-between w-5/6">
-            <Button onClick={onSubmit}>Send Money</Button>
+            <Button onClick={onSubmit} buttonLoader={buttonLoader}>
+              Send Money
+            </Button>
             <Button onClick={onCancel}> Cancel</Button>
           </div>
         </div>

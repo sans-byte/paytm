@@ -1,6 +1,6 @@
 import React from "react";
 
-function Search({onChange}) {
+function Search({ onChange }) {
   return (
     <div className="mt-4">
       <form className="flex items-center max-w-sm mx-auto">

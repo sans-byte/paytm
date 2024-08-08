@@ -27,3 +27,21 @@ export const getBulkUsers = async (filter) => {
     return error.response;
   }
 };
+
+export const transferMoney = async (data) => {
+  try {
+    const response = await axiosInstance.post("/account/transfer", data);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const getBalance = async () => {
+  try {
+    const response = await axiosInstance.get("/account/balance");
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
