@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 
-const Input = forwardRef(({ label, name, placeholder }, ref) => {
+const Input = forwardRef(({ label, name, placeholder, type }, ref) => {
   return (
     <div className="w-full m-auto">
       <div className="flex justify-start items-start flex-col w-5/6 m-auto gap-2">
@@ -8,7 +8,7 @@ const Input = forwardRef(({ label, name, placeholder }, ref) => {
           {label}
         </label>
         <input
-          type="text"
+          type={type ? type : "text"}
           name={name}
           id={name}
           placeholder={placeholder}

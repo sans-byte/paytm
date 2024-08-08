@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
-function AppBar({ user }) {
+function AppBar() {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <div>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -14,10 +23,13 @@ function AppBar({ user }) {
               alt="Flowbite Logo"
             />
           </div>
+
           <div className="flex justify-center items-center gap-3">
-            <Button> Log out </Button>
+            <Button onClick={handleLogOut}> Log out </Button>
             <div className="h-8 w-8 bg-slate-400 rounded-full flex justify-center items-center">
-              <p className="text-bold text-xl font-mono">{"s".toUpperCase()}</p>
+              <p className="text-bold text-xl font-mono">
+                {user.firstName.split("")[0].toUpperCase()}
+              </p>
             </div>
           </div>
         </div>
