@@ -25,11 +25,11 @@ function SignUp() {
     };
     try {
       const response = await signUp(payload);
-      if (response.status === 201) {
+      if (response && response.status === 201) {
         alert("User Created");
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        navigate("/dashboard");
+        return navigate("/dashboard");
       } else {
         if (typeof response.data === "object") {
           return response.data.map((err) => alert(err.message));

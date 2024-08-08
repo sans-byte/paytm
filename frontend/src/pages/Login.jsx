@@ -23,7 +23,7 @@ function Login() {
     try {
       const response = await signin(payload);
       console.log(response);
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         alert("Logged In success");
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));

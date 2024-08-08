@@ -3,7 +3,7 @@ import Heading from "../Components/Heading";
 import Button from "../Components/Button";
 import Input from "../Components/Input";
 
-function SendMoney() {
+function SendMoney({ onSubmit, onCancel, user }) {
   return (
     <div>
       <div className="flex justify-center items-center w-screen h-screen">
@@ -12,15 +12,18 @@ function SendMoney() {
           <div className="w-full h-1/2">
             <div className="flex justify-start items-center w-5/6 mx-auto mb-5">
               <div className="h-10 w-10 bg-slate-400 rounded-full flex justify-center items-center text-xl">
-                S
+                {user.firstName.split("")[0].toUpperCase()}
               </div>
-              <p className="px-4 capitalize">Sanskar Jain</p>
+              <p className="px-4 capitalize">
+                {user?.firstName + " " + user?.lastName}
+              </p>
             </div>
             <Input label={"Enter Amount"} placeholder={"₹ 500"}></Input>
           </div>
 
-          <div className="mb-5">
-            <Button>Send Money</Button>
+          <div className="mb-5 flex justify-between w-5/6">
+            <Button onClick={onSubmit}>Send Money</Button>
+            <Button onClick={onCancel}> Cancel</Button>
           </div>
         </div>
       </div>

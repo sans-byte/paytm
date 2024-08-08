@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 
-function UserItem({ user }) {
+function UserItem({ user, model, toUser }) {
   const navigate = useNavigate();
   return (
     <div className="flex justify-between items-center bg-slate-100 p-1 mt-1 rounded-md">
@@ -15,7 +15,14 @@ function UserItem({ user }) {
         </p>
       </div>
       <div>
-        <Button onClick={() => navigate("/sendmoney")}>Send Money</Button>
+        <Button
+          onClick={() => {
+            toUser(user);
+            model();
+          }}
+        >
+          Send Money
+        </Button>
       </div>
     </div>
   );
