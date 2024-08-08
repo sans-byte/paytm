@@ -33,22 +33,28 @@ router.post("/signin", async (req, res) => {
   try {
     const parsedData = userSignInSchema.safeParse(user);
     if (!parsedData.success) {
-      res.status(400).json(parsedData.error.issues);
+      return res.status(400).json(parsedData.error.issues);
     }
     const findUser = await User.findOne({ email: user.email });
     if (!findUser) {
-      res.status(404).json("User does not exist");
+      return res.status(404).json("User does not exist");
     }
     const passwordMatch = await bcrypt.compare(
       user.password,
       findUser.password
     );
     if (!passwordMatch) {
-      res.status(400).json("Password Incorrect");
+      return res.status(400).json("Password Incorrect");
     }
     const token = jwt.sign(findUser._doc, JWT_SECRET);
     return res.status(200).json({
       token,
+      user: {
+        firstName: findUser.firstName,
+        lastName: findUser.lastName,
+        email: findUser.email,
+        id: findUser._id,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -81,8 +87,12 @@ router.post("/signup", async (req, res) => {
     const token = jwt.sign(createdUser._doc, JWT_SECRET);
     res.status(201).json({
       token: token,
-      UserId: createdUser._id,
-      AccountId: createdAccount._id,
+      user: {
+        firstName: createdUser.firstName,
+        lastName: createdUser.lastName,
+        email: createdUser.email,
+        id: createdUser._id,
+      },
     });
   } catch (error) {
     console.log("Something went wrong while creating user", error);
